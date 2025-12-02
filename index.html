@@ -2,8 +2,8 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Giao diện Sản phẩm - Audio & Scroll</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Giao diện Desktop Mode trên Mobile</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -12,6 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
+        /* --- CẤU HÌNH CƠ BẢN --- */
         html, body {
             margin: 0;
             padding: 0;
@@ -19,69 +20,50 @@
             width: 100%;
             font-family: 'Montserrat', sans-serif;
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            overflow: hidden; /* Ẩn thanh cuộn của trình duyệt */
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
-            /* Vô hiệu hóa chọn văn bản */
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-            /* Vô hiệu hóa kéo thả */
-            -webkit-user-drag: none;
-            -khtml-user-drag: none;
-            -moz-user-drag: none;
-            -o-user-drag: none;
-            user-drag: none;
-        }
-
-        /* Vô hiệu hóa chuột phải */
-        body {
-            -webkit-touch-callout: none;
-            -webkit-user-select: none;
-            -khtml-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
         }
 
         .serif-font { font-family: 'Anton', sans-serif; }
 
-        /* Container cho A4 với padding */
-        .a4-container {
-            width: 100%;
-            height: 100%;
+        /* --- CONTAINER CHÍNH (WRAPPER) --- */
+        /* Đây là khung bao ngoài để căn giữa nội dung khi scale */
+        #app-container {
+            width: 100vw;
+            height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 10px;
-            box-sizing: border-box;
+            position: relative;
         }
 
+        /* --- GIAO DIỆN CHÍNH (CỐ ĐỊNH KÍCH THƯỚC DESKTOP) --- */
         #main-ui {
+            /* Kích thước CỐ ĐỊNH, không dùng % */
+            width: 960px;  
+            height: 600px;
+            
             background-image: url('image/image.png');
             background-size: cover;
             background-position: center;
-            background-repeat: no-repeat;
-            border-radius: 12px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            border-radius: 20px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
             display: flex;
-            flex-direction: row;
+            flex-direction: row; /* Luôn luôn là hàng ngang */
             overflow: hidden;
-            border: 1px solid #f1f1f1;
-            /* Kích thước A4 chuẩn: 794px x 1123px (210mm x 297mm at 96 DPI) */
-            width: 794px;
-            height: 1123px;
-            max-width: 100%;
-            max-height: 100%;
+            background-color: #fff;
             position: relative;
-            transition: all 0.3s ease;
-            box-sizing: border-box;
+            
+            /* Quan trọng: Điểm neo để scale từ trung tâm */
+            transform-origin: center center;
+            transition: transform 0.1s ease-out;
         }
 
+        /* --- CÁC THÀNH PHẦN BÊN TRONG (GIỮ NGUYÊN CSS CŨ) --- */
         #left-image-area {
-            width: 50%;
+            width: 45%; /* Giảm ảnh chút để tăng đất cho chữ */
             height: 100%;
             position: relative;
         }
@@ -92,622 +74,168 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transform: translateX(-20px);
-            /* Vô hiệu hóa kéo thả ảnh */
-            -webkit-user-drag: none;
-            -khtml-user-drag: none;
-            -moz-user-drag: none;
-            -o-user-drag: none;
-            user-drag: none;
-            pointer-events: none;
         }
 
         #right-content-area {
-            width: 50%;
+            width: 55%;
             height: 100%;
             display: flex;
             flex-direction: column;
-            padding: 50px;
-            padding-left: 0;
+            padding: 40px;
             box-sizing: border-box;
-            background: rgba(255, 255, 255, 0.581);
-        }
-
-        #header-box {
-            flex-shrink: 0;
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(8px);
         }
 
         #header-box h2 {
-            font-size: 36px;
-            left: -100px;
+            font-size: 38px; /* Font to rõ */
             font-weight: 700;
             color: #b93838;
             border-bottom: 4px solid #b93838;
             padding-bottom: 8px;
             display: inline-block;
-            letter-spacing: -0.5px;
-            margin-bottom: 30px;
-            margin-top: 50px;
+            margin: 0 0 25px 0;
+            white-space: nowrap; /* Không cho xuống dòng tiêu đề */
         }
 
         #content-wrapper {
+            flex: 1;
             display: flex;
             flex-direction: column;
-            width: 100%;
-            height: 100%;
             overflow: hidden;
         }
 
         #feature-list {
+            flex: 1;
+            overflow-y: auto;
             display: flex;
             flex-direction: column;
-            gap: 20px;
-            width: 100%;
-            overflow-y: auto;
-            flex: 1;
-            padding-right: 30px;
-            padding-bottom: 30px;
-            box-sizing: border-box;
+            gap: 15px;
+            padding-right: 10px;
+            padding-bottom: 20px;
         }
 
-        #feature-list::-webkit-scrollbar {
-            width: 8px;
-        }
-        #feature-list::-webkit-scrollbar-track {
-            background: rgba(0,0,0,0.05);
-            border-radius: 10px;
-        }
-        #feature-list::-webkit-scrollbar-thumb {
-            background: #b9383854;
-            border-radius: 10px;
-        }
-        #feature-list::-webkit-scrollbar-thumb:hover {
-            background: #932a2a;
-        }
+        /* Scrollbar đẹp */
+        #feature-list::-webkit-scrollbar { width: 6px; }
+        #feature-list::-webkit-scrollbar-track { background: rgba(0,0,0,0.05); }
+        #feature-list::-webkit-scrollbar-thumb { background: rgba(185, 56, 56, 0.4); border-radius: 10px; }
 
         .feature-item {
             display: flex;
             align-items: flex-start;
-            gap: 16px;
-            padding: 20px;
-            border-radius: 20px;
-            background: rgba(255, 255, 255, 0.6);
-            -webkit-backdrop-filter: blur(6px) saturate(150%);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 4px 16px rgba(0,0,0,0.05);
-            transition: all 0.3s ease;
+            gap: 15px;
+            padding: 15px;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: 0.2s;
             flex-shrink: 0;
         }
-
+        
         .feature-item:hover {
-            background: rgba(255, 255, 255, 0.8);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+            background: rgba(255, 255, 255, 0.9);
             transform: scale(1.02);
         }
 
         .feature-icon {
             flex-shrink: 0;
-            width: 40px;
-            height: 40px;
-            background: rgba(255, 255, 255, 0.8);
+            width: 32px;
+            height: 32px;
+            background: #fff;
+            color: #b93838;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 50%;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            transition: 0.3s ease;
-            margin-top: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             cursor: pointer;
-            color: #b93838;
-        }
-
-        .feature-icon:hover {
-            background: #b93838;
-            color: #fff;
-            transform: scale(1.1);
+            margin-top: 2px;
         }
 
         .feature-text {
-            font-size: 12px;
-            font-weight: 500;
-            color: #1f2937;
-            line-height: 1.6;
-            white-space: pre-line;
+            font-size: 14px;
+            color: #2d3436;
+            line-height: 1.5;
             text-align: justify;
         }
 
-        /* Team button styles */
+        /* --- BUTTON TEAM & MODAL --- */
         #team-button {
             position: absolute;
-            top: 20px;
-            right: 20px;
-            background: linear-gradient(135deg, #b93838 0%, #d45858 100%);
+            top: 25px;
+            right: 25px;
+            background: linear-gradient(135deg, #b93838, #d45858);
             color: white;
             border: none;
             border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            width: 44px;
+            height: 44px;
+            font-size: 18px;
             cursor: pointer;
-            box-shadow: 0 4px 12px rgba(185, 56, 56, 0.3);
+            box-shadow: 0 4px 12px rgba(185, 56, 56, 0.4);
             z-index: 100;
-            transition: all 0.3s ease;
+            display: flex; align-items: center; justify-content: center;
         }
 
-        #team-button:hover {
-            background: linear-gradient(135deg, #932a2a 0%, #b93838 100%);
-            transform: scale(1.1);
-            box-shadow: 0 6px 16px rgba(185, 56, 56, 0.4);
-        }
-
-        /* Team modal styles */
         #team-modal {
             display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(5px);
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(4px);
             z-index: 1000;
-            animation: fadeIn 0.3s ease;
-        }
-
-        #team-modal.active {
-            display: flex;
             align-items: center;
             justify-content: center;
         }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
+        #team-modal.active { display: flex; }
 
         #team-container {
-            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-            border-radius: 16px;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-            width: 600px;
-            height: 400px;
-            overflow: hidden;
-            position: relative;
-            animation: slideUp 0.4s ease;
-            display: flex;
-            flex-direction: column;
-            transform-origin: center center;
-        }
-
-        @keyframes slideUp {
-            from { transform: translateY(50px) scale(1); opacity: 0; }
-            to { transform: translateY(0) scale(1); opacity: 1; }
-        }
-
-        #team-header {
-            background: linear-gradient(135deg, #b93838 0%, #d45858 100%);
-            color: white;
-            padding: 15px 20px;
-            text-align: center;
-            position: relative;
-            flex-shrink: 0;
-        }
-
-        #team-header h2 {
-            margin: 0;
-            font-size: 22px;
-            font-weight: 700;
-            letter-spacing: 1px;
-        }
-
-        #team-header p {
-            margin-top: 5px;
-            opacity: 0.9;
-            font-size: 12px;
-        }
-
-        .close-button {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
-            color: white;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 14px;
-        }
-
-        .close-button:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: rotate(90deg);
-        }
-
-        #team-members {
-            padding: 15px;
-            overflow-y: auto;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        #team-members::-webkit-scrollbar {
-            width: 4px;
-        }
-
-        #team-members::-webkit-scrollbar-track {
-            background: rgba(0,0,0,0.05);
-        }
-
-        #team-members::-webkit-scrollbar-thumb {
-            background: #b93838;
-            border-radius: 10px;
-        }
-
-        .team-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 10px;
-            flex: 1;
-        }
-
-        .team-member-card {
+            width: 500px;
             background: white;
-            border-radius: 10px;
-            padding: 12px;
-            text-align: center;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
-            transition: all 0.3s ease;
-            position: relative;
+            border-radius: 16px;
             overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            /* Modal cũng sẽ được scale theo main-ui nếu nằm trong app-container, 
+               nhưng ở đây modal fixed viewport nên ta để riêng */
         }
-
-        .team-member-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, #b93838, #d45858);
-            transform: scaleX(0);
-            transition: transform 0.3s ease;
-        }
-
-        .team-member-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .team-member-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.12);
-        }
-
-        .member-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            margin: 0 auto 8px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 20px;
-            font-weight: 600;
-            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
-        }
-
-        .member-name {
-            font-size: 14px;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 3px;
-        }
-
-        .thank-you-section {
-            text-align: center;
-            padding: 15px;
-            background: linear-gradient(135deg, rgba(185, 56, 56, 0.05) 0%, rgba(212, 88, 88, 0.05) 100%);
-            border-top: 1px solid rgba(185, 56, 56, 0.1);
-            flex-shrink: 0;
-        }
-
-        .thank-you-section h3 {
-            color: #b93838;
-            font-size: 18px;
-            margin-bottom: 5px;
-        }
-
-        .thank-you-section p {
-            color: #666;
-            font-size: 12px;
-        }
-
-        /* Rotation notice */
-        #rotation-notice {
+        
+        /* --- MÀN HÌNH XOAY NGANG (MESSAGE) --- */
+        #rotate-message {
             display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.85);
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #2d3436;
             color: white;
+            z-index: 9999;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
             text-align: center;
-            z-index: 1000;
         }
-
-        #rotation-notice i {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            color: #b93838;
-        }
-
-        #rotation-notice p {
-            font-size: 1rem;
-            margin: 0;
-            padding: 0 20px;
-        }
-
-        /* Responsive Design - Giữ nguyên kích thước A4 trên laptop/máy tính */
-        @media only screen and (max-width: 1400px) {
-            .a4-container {
-                padding: 20px;
-            }
-            /* Giữ nguyên kích thước A4 trên laptop lớn */
-            #main-ui {
-                width: 794px;
-                height: 1123px;
-                transform: none;
-            }
-            #team-container {
-                width: 600px;
-                height: 400px;
-                transform: none;
-            }
-        }
-
-        @media only screen and (max-width: 1200px) {
-            .a4-container {
-                padding: 15px;
-            }
-            /* Giữ nguyên kích thước A4 trên laptop trung bình */
-            #main-ui {
-                width: 794px;
-                height: 1123px;
-                transform: none;
-            }
-            #team-container {
-                width: 600px;
-                height: 400px;
-                transform: none;
-            }
-        }
-
-        @media only screen and (max-width: 1024px) {
-            .a4-container {
-                padding: 10px;
-            }
-            /* Giữ nguyên kích thước A4 trên laptop nhỏ */
-            #main-ui {
-                width: 794px;
-                height: 1123px;
-                transform: none;
-            }
-            #team-container {
-                width: 600px;
-                height: 400px;
-                transform: none;
-            }
-            #header-box h2 {
-                font-size: 32px;
-                margin-top: 80px;
-            }
-            #right-content-area {
-                padding: 40px;
-                padding-left: 0;
-            }
-            .feature-text {
-                font-size: 15px;
-            }
-        }
-
-        @media only screen and (max-width: 768px) {
-            @media (orientation: portrait) {
-                #main-ui {
-                    display: none;
-                }
-                #rotation-notice {
-                    display: flex;
-                }
-            }
-
-            @media (orientation: landscape) {
-                .a4-container {
-                    padding: 5px;
-                }
-                /* Thu nhỏ mạnh hơn trên tablet/mobile */
-                #main-ui {
-                    width: 794px;
-                    height: 1123px;
-                    transform: scale(0.65);
-                    transform-origin: center center;
-                    border-radius: 8px;
-                }
-                #team-container {
-                    width: 600px;
-                    height: 400px;
-                    transform: scale(0.65);
-                    transform-origin: center center;
-                }
-                #right-content-area {
-                    padding: 25px;
-                    padding-left: 0;
-                }
-                #header-box h2 {
-                    font-size: 24px;
-                    margin-top: 40px;
-                    margin-bottom: 15px;
-                }
-                .feature-text {
-                    font-size: 12px;
-                }
-                .feature-item {
-                    padding: 12px;
-                    gap: 10px;
-                }
-                .feature-icon {
-                    width: 30px;
-                    height: 30px;
-                    margin-top: 2px;
-                }
-            }
-
-            .team-grid {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 8px;
-            }
-            
-            .team-member-card {
-                padding: 8px;
-            }
-            
-            .member-avatar {
-                width: 35px;
-                height: 35px;
-                font-size: 14px;
-            }
-            
-            .member-name {
-                font-size: 11px;
-            }
-        }
-
-        /* Thêm media query cho màn hình rất nhỏ - THU NHỎ HƠN NỮA */
-        @media only screen and (max-width: 480px) {
-            .a4-container {
-                padding: 2px;
+        
+        /* Chỉ hiện thông báo xoay khi màn hình là điện thoại dọc (chiều rộng nhỏ hơn chiều cao) */
+        @media screen and (orientation: portrait) {
+            #rotate-message {
+                display: flex;
             }
             #main-ui {
-                width: 794px;
-                height: 1123px;
-                transform: scale(0.45);
-                transform-origin: center center;
-            }
-            #team-container {
-                width: 600px;
-                height: 400px;
-                transform: scale(0.45);
-                transform-origin: center center;
-            }
-            
-            #team-header {
-                padding: 6px 10px;
-            }
-            
-            #team-header h2 {
-                font-size: 14px;
-            }
-            
-            #team-header p {
-                font-size: 9px;
-            }
-            
-            #team-members {
-                padding: 4px;
-            }
-            
-            .team-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 4px;
-            }
-            
-            .team-member-card {
-                padding: 3px;
-            }
-            
-            .member-avatar {
-                width: 25px;
-                height: 25px;
-                font-size: 10px;
-                margin: 0 auto 3px;
-            }
-            
-            .member-name {
-                font-size: 8px;
-                margin-bottom: 1px;
-            }
-            
-            .thank-you-section {
-                padding: 6px;
-            }
-            
-            .thank-you-section h3 {
-                font-size: 12px;
-                margin-bottom: 2px;
-            }
-            
-            .thank-you-section p {
-                font-size: 8px;
-            }
-
-            .close-button {
-                width: 20px;
-                height: 20px;
-                font-size: 10px;
-                top: 6px;
-                right: 6px;
+                opacity: 0; /* Ẩn giao diện chính đi cho đỡ rối */
             }
         }
 
-        /* Vô hiệu hóa chuột phải trên hình ảnh */
-        img {
-            -webkit-user-drag: none;
-            -khtml-user-drag: none;
-            -moz-user-drag: none;
-            -o-user-drag: none;
-            user-drag: none;
-            pointer-events: none;
-        }
-
-        /* Vô hiệu hóa chuột phải trên toàn bộ trang */
-        body {
-            -webkit-touch-callout: none;
-            -webkit-user-select: none;
-            -khtml-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-        }
     </style>
 </head>
 <body>
 
-    <!-- Thông báo yêu cầu xoay màn hình -->
-    <div id="rotation-notice">
-        <i class="fa-solid fa-mobile-screen"></i>
-        <p>Vui lòng xoay ngang thiết bị để có trải nghiệm tốt nhất</p>
+    <div id="rotate-message">
+        <i class="fa-solid fa-rotate-right" style="font-size: 50px; margin-bottom: 20px; color: #b93838;"></i>
+        <h3 style="font-family: 'Montserrat', sans-serif;">Vui lòng xoay ngang điện thoại</h3>
+        <p style="font-family: 'Montserrat', sans-serif; opacity: 0.7;">Giao diện được thiết kế tối ưu cho khổ ngang</p>
     </div>
 
-    <!-- Container A4 với padding -->
-    <div class="a4-container">
+    <div id="app-container">
         <div id="main-ui">
-            <!-- Nút xem thêm thông tin nhóm -->
             <button id="team-button" onclick="openTeamModal()">
                 <i class="fa-solid fa-users"></i>
             </button>
@@ -725,41 +253,36 @@
                     <div id="feature-list">
                         <div class="feature-item">
                             <div class="feature-icon" onclick="toggleAudio(0, this)">
-                                <i class="fa-solid fa-play" style="font-size: 14px;"></i>
+                                <i class="fa-solid fa-play" style="font-size: 12px;"></i>
                             </div>
                             <div class="feature-text">
                                 <strong>Six Perfections Lotus Stupa</strong><br>
-                                The architectural highlight of complex is Six Perfections Lotus Stupa, which is symmetrically arranged with Bodhi tree. Built at end of 20th century, it remains a highly symbolic structure, strictly adhering to the iconographic principles of Buddhism.
+                                The architectural highlight of complex is Six Perfections Lotus Stupa, symmetrically arranged with Bodhi tree. Built at end of 20th century.
                             </div>
                         </div>
-
                         <div class="feature-item">
                             <div class="feature-icon" onclick="toggleAudio(1, this)">
-                                <i class="fa-solid fa-play" style="font-size: 14px;"></i>
+                                <i class="fa-solid fa-play" style="font-size: 12px;"></i>
                             </div>
                             <div class="feature-text">
-                                At the very top is the nine-tiered lotus pedestal (Cửu phẩm liên hoa), crafted from precious stone, symbolizing the nine supreme levels of the Pure Land and representing spiritual elevation along the inner journey.
-                                <br><br>
-                                The entire stupa carries a reddish-brown hue, harmonizing with the ancient brick tones and the overall architecture of the temple.
+                                At the very top is the nine-tiered lotus pedestal (Cửu phẩm liên hoa), crafted from precious stone, symbolizing the nine supreme levels of the Pure Land.
                             </div>
                         </div>
-
                         <div class="feature-item">
                             <div class="feature-icon" onclick="toggleAudio(2, this)">
-                                <i class="fa-solid fa-play" style="font-size: 14px;"></i>
+                                <i class="fa-solid fa-play" style="font-size: 12px;"></i>
                             </div>
                             <div class="feature-text">
                                 <strong>Tower parameters</strong><br>
                                 The stupa is fifteen meters high, consisting of eleven stories, with a floor area of about 10.5 square meters.
                             </div>
                         </div>
-                        
                         <div class="feature-item">
                             <div class="feature-icon" onclick="toggleAudio(3, this)">
-                                <i class="fa-solid fa-play" style="font-size: 14px;"></i>
+                                <i class="fa-solid fa-play" style="font-size: 12px;"></i>
                             </div>
                             <div class="feature-text">
-                                The stupa has a hexagonal shape. Each level features six arched doors, and within each doorway stands a statue of Amitabha Buddha carved from white precious stone. In total, there are sixty-six statues of varying sizes. This number, together with the name Six Perfection symbolizes the six noble practices (paramitas) of the Bodhisattva.
+                                The stupa has a hexagonal shape. Each level features six arched doors, and within each doorway stands a statue of Amitabha Buddha carved from white precious stone.
                             </div>
                         </div>
                     </div>
@@ -768,91 +291,63 @@
         </div>
     </div>
 
-    <!-- Modal thành viên nhóm -->
-    <div id="team-modal">
+    <div id="team-modal" onclick="if(event.target===this) closeTeamModal()">
         <div id="team-container">
-            <div id="team-header">
-                <button class="close-button" onclick="closeTeamModal()">
-                    <i class="fa-solid fa-times"></i>
-                </button>
-                <h2>Đội Ngũ Phát Triển</h2>
-                <p>Các thành viên trong nhóm</p>
+            <div style="background:#b93838; color:white; padding:15px; position:relative; text-align:center;">
+                <span onclick="closeTeamModal()" style="position:absolute; right:15px; top:12px; cursor:pointer; font-size:20px;">&times;</span>
+                <h3 style="margin:0;">Đội Ngũ Phát Triển</h3>
             </div>
-            
-            <div id="team-members">
-                <div class="team-grid">
-                    <div class="team-member-card">
-                        <div class="member-avatar">PA</div>
-                        <div class="member-name">Nguyễn Phương Anh</div>
-                    </div>
-
-                    <div class="team-member-card">
-                        <div class="member-avatar">TN</div>
-                        <div class="member-name">Đinh Thị Tâm Như</div>
-                    </div>
-
-                    <div class="team-member-card">
-                        <div class="member-avatar">QM</div>
-                        <div class="member-name">Hoàng Thị Quỳnh Mai</div>
-                    </div>
-
-                    <div class="team-member-card">
-                        <div class="member-avatar">MT</div>
-                        <div class="member-name">Trần Thị Minh Tuyết</div>
-                    </div>
-
-                    <div class="team-member-card">
-                        <div class="member-avatar">HT</div>
-                        <div class="member-name">Nguyễn Thị Huyền Trang</div>
-                    </div>
+            <div style="padding:20px; text-align:center;">
+                <p>Thành viên nhóm...</p>
                 </div>
-            </div>
-
-            <div class="thank-you-section">
-                <h3>Cảm ơn đã xem!</h3>
-                <p>Chúng tôi rất vui khi được chia sẻ dự án này với bạn</p>
-            </div>
         </div>
     </div>
 
     <script>
-        // Vô hiệu hóa chuột phải
-        document.addEventListener('contextmenu', function(e) {
-            e.preventDefault();
-            return false;
-        });
+        /* 1. LOGIC TỰ ĐỘNG THU PHÓNG (SCALE) */
+        function scaleUI() {
+            const mainUI = document.getElementById('main-ui');
+            const container = document.getElementById('app-container');
+            
+            // Kích thước gốc của thiết kế
+            const baseWidth = 960;
+            const baseHeight = 600;
+            
+            // Kích thước màn hình hiện tại
+            const windowWidth = window.innerWidth;
+            const windowHeight = window.innerHeight;
+            
+            // Tính tỉ lệ scale: Chọn tỉ lệ nhỏ hơn giữa chiều rộng và chiều cao
+            // Để đảm bảo giao diện luôn nằm lọt trong màn hình
+            const scaleX = windowWidth / baseWidth;
+            const scaleY = windowHeight / baseHeight;
+            
+            // Lấy giá trị scale nhỏ nhất và trừ đi một chút padding (0.95) để không sát lề
+            let scale = Math.min(scaleX, scaleY) * 0.95;
+            
+            // Giới hạn không cho scale quá to (trên Desktop thì giữ nguyên scale 1)
+            if (scale > 1) scale = 1;
+            
+            // Áp dụng scale
+            mainUI.style.transform = `scale(${scale})`;
+        }
 
-        // Vô hiệu hóa các phím tắt
-        document.addEventListener('keydown', function(e) {
-            // Vô hiệu hóa F12
-            if (e.keyCode === 123) {
-                e.preventDefault();
-                return false;
-            }
-            // Vô hiệu hóa Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
-            if (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74)) {
-                e.preventDefault();
-                return false;
-            }
-            if (e.ctrlKey && e.keyCode === 85) {
-                e.preventDefault();
-                return false;
-            }
-        });
+        // Chạy hàm scale khi tải trang và khi xoay/resize màn hình
+        window.addEventListener('load', scaleUI);
+        window.addEventListener('resize', scaleUI);
 
+        /* 2. LOGIC AUDIO (GIỮ NGUYÊN) */
         const audioSources = [
             "https://firebasestorage.googleapis.com/v0/b/sleana-mod.appspot.com/o/voice%2Fvoice1.mp3?alt=media&token=4fbf899d-cd4e-4026-99bc-2de09266ecbd",
             "https://firebasestorage.googleapis.com/v0/b/sleana-mod.appspot.com/o/voice%2Fvoice2.mp3?alt=media&token=b67738e3-9480-4975-99b5-6ffe03a40633",
             "https://firebasestorage.googleapis.com/v0/b/sleana-mod.appspot.com/o/voice%2Fvoice3.mp3?alt=media&token=704aad4e-179c-4ad8-b26f-c46f3a81a9a2",
             "https://firebasestorage.googleapis.com/v0/b/sleana-mod.appspot.com/o/voice%2Fvoice4.mp3?alt=media&token=1fb3d27f-902e-41d3-99d4-d375bdb3bc68"
         ];
-
         let currentAudio = null;
         let currentButton = null;
 
         function toggleAudio(index, btnElement) {
             const icon = btnElement.querySelector('i');
-
             if (currentAudio && currentButton === btnElement) {
                 if (currentAudio.paused) {
                     currentAudio.play();
@@ -865,7 +360,6 @@
                 }
                 return;
             }
-
             if (currentAudio) {
                 currentAudio.pause();
                 currentAudio.currentTime = 0;
@@ -875,14 +369,11 @@
                     oldIcon.classList.add('fa-play');
                 }
             }
-
             currentAudio = new Audio(audioSources[index]);
             currentButton = btnElement;
-            
             currentAudio.play();
             icon.classList.remove('fa-play');
             icon.classList.add('fa-pause');
-
             currentAudio.onended = function() {
                 icon.classList.remove('fa-pause');
                 icon.classList.add('fa-play');
@@ -891,32 +382,9 @@
             };
         }
 
-        function openTeamModal() {
-            const modal = document.getElementById('team-modal');
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeTeamModal() {
-            const modal = document.getElementById('team-modal');
-            modal.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
-
-        // Close modal when clicking outside
-        document.getElementById('team-modal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeTeamModal();
-            }
-        });
-
-        // Close modal with Escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeTeamModal();
-            }
-        });
+        /* 3. LOGIC MODAL */
+        function openTeamModal() { document.getElementById('team-modal').classList.add('active'); }
+        function closeTeamModal() { document.getElementById('team-modal').classList.remove('active'); }
     </script>
-
 </body>
 </html>
