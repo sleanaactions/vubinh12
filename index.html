@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Giao diện Sản phẩm - Audio & Scroll</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -18,34 +18,66 @@
             height: 100%;
             width: 100%;
             font-family: 'Montserrat', sans-serif;
-            background: #00000014;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
+            /* Vô hiệu hóa chọn văn bản */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            /* Vô hiệu hóa kéo thả */
+            -webkit-user-drag: none;
+            -khtml-user-drag: none;
+            -moz-user-drag: none;
+            -o-user-drag: none;
+            user-drag: none;
+        }
+
+        /* Vô hiệu hóa chuột phải */
+        body {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
 
         .serif-font { font-family: 'Anton', sans-serif; }
+
+        /* Container cho A4 với padding */
+        .a4-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
 
         #main-ui {
             background-image: url('image/image.png');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            border-radius: 24px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
             display: flex;
             flex-direction: row;
             overflow: hidden;
             border: 1px solid #f1f1f1;
-            width: 100%;
-            max-width: 1200px;
-            height: auto;
-            max-height: 90vh;
-            aspect-ratio: 333 / 210;
-            margin: auto;
+            /* Kích thước A4 chuẩn: 794px x 1123px (210mm x 297mm at 96 DPI) */
+            width: 794px;
+            height: 1123px;
+            max-width: 100%;
+            max-height: 100%;
             position: relative;
             transition: all 0.3s ease;
+            box-sizing: border-box;
         }
 
         #left-image-area {
@@ -61,6 +93,13 @@
             height: 100%;
             object-fit: cover;
             transform: translateX(-20px);
+            /* Vô hiệu hóa kéo thả ảnh */
+            -webkit-user-drag: none;
+            -khtml-user-drag: none;
+            -moz-user-drag: none;
+            -o-user-drag: none;
+            user-drag: none;
+            pointer-events: none;
         }
 
         #right-content-area {
@@ -68,7 +107,7 @@
             height: 100%;
             display: flex;
             flex-direction: column;
-            padding: 48px;
+            padding: 50px;
             padding-left: 0;
             box-sizing: border-box;
             background: rgba(255, 255, 255, 0.581);
@@ -79,16 +118,16 @@
         }
 
         #header-box h2 {
-            font-size: 50px;
+            font-size: 36px;
             left: -100px;
             font-weight: 700;
             color: #b93838;
-            border-bottom: 5px solid #b93838;
+            border-bottom: 4px solid #b93838;
             padding-bottom: 8px;
             display: inline-block;
             letter-spacing: -0.5px;
             margin-bottom: 30px;
-            margin-top: 150px;
+            margin-top: 50px;
         }
 
         #content-wrapper {
@@ -102,12 +141,12 @@
         #feature-list {
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 20px;
             width: 100%;
             overflow-y: auto;
             flex: 1;
-            padding-right: 24px;
-            padding-bottom: 20px;
+            padding-right: 30px;
+            padding-bottom: 30px;
             box-sizing: border-box;
         }
 
@@ -130,8 +169,8 @@
             display: flex;
             align-items: flex-start;
             gap: 16px;
-            padding: 16px;
-            border-radius: 24px;
+            padding: 20px;
+            border-radius: 20px;
             background: rgba(255, 255, 255, 0.6);
             -webkit-backdrop-filter: blur(6px) saturate(150%);
             border: 1px solid rgba(255, 255, 255, 0.3);
@@ -148,8 +187,8 @@
 
         .feature-icon {
             flex-shrink: 0;
-            width: 36px;
-            height: 36px;
+            width: 40px;
+            height: 40px;
             background: rgba(255, 255, 255, 0.8);
             display: flex;
             align-items: center;
@@ -169,7 +208,7 @@
         }
 
         .feature-text {
-            font-size: 16px;
+            font-size: 12px;
             font-weight: 500;
             color: #1f2937;
             line-height: 1.6;
@@ -230,27 +269,27 @@
 
         #team-container {
             background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-            border-radius: 24px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
-            max-width: 800px;
-            width: 90%;
-            max-height: 85vh;
+            border-radius: 16px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            width: 600px;
+            height: 400px;
             overflow: hidden;
             position: relative;
             animation: slideUp 0.4s ease;
             display: flex;
             flex-direction: column;
+            transform-origin: center center;
         }
 
         @keyframes slideUp {
-            from { transform: translateY(50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+            from { transform: translateY(50px) scale(1); opacity: 0; }
+            to { transform: translateY(0) scale(1); opacity: 1; }
         }
 
         #team-header {
             background: linear-gradient(135deg, #b93838 0%, #d45858 100%);
             color: white;
-            padding: 20px 30px; /* Giảm padding từ 30px xuống 20px 30px */
+            padding: 15px 20px;
             text-align: center;
             position: relative;
             flex-shrink: 0;
@@ -258,33 +297,33 @@
 
         #team-header h2 {
             margin: 0;
-            font-size: 28px; /* Giảm từ 32px xuống 28px */
+            font-size: 22px;
             font-weight: 700;
             letter-spacing: 1px;
         }
 
         #team-header p {
-            margin-top: 8px; /* Giảm từ 10px xuống 8px */
+            margin-top: 5px;
             opacity: 0.9;
-            font-size: 14px; /* Giảm từ 16px xuống 14px */
+            font-size: 12px;
         }
 
         .close-button {
             position: absolute;
-            top: 15px; /* Giảm từ 20px xuống 15px */
-            right: 15px; /* Giảm từ 20px xuống 15px */
+            top: 12px;
+            right: 12px;
             background: rgba(255, 255, 255, 0.2);
             border: none;
             color: white;
-            width: 35px; /* Giảm từ 40px xuống 35px */
-            height: 35px; /* Giảm từ 40px xuống 35px */
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             transition: all 0.3s ease;
-            font-size: 16px; /* Giảm từ 18px xuống 16px */
+            font-size: 14px;
         }
 
         .close-button:hover {
@@ -293,7 +332,7 @@
         }
 
         #team-members {
-            padding: 20px; /* Giảm từ 40px xuống 20px */
+            padding: 15px;
             overflow-y: auto;
             flex: 1;
             display: flex;
@@ -301,7 +340,7 @@
         }
 
         #team-members::-webkit-scrollbar {
-            width: 6px;
+            width: 4px;
         }
 
         #team-members::-webkit-scrollbar-track {
@@ -315,17 +354,17 @@
 
         .team-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Giảm từ 250px xuống 200px */
-            gap: 15px; /* Giảm từ 25px xuống 15px */
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
             flex: 1;
         }
 
         .team-member-card {
             background: white;
-            border-radius: 12px; /* Giảm từ 16px xuống 12px */
-            padding: 15px; /* Giảm từ 25px xuống 15px */
+            border-radius: 10px;
+            padding: 12px;
             text-align: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08); /* Giảm từ 0 8px 20px xuống 0 5px 15px */
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
@@ -340,7 +379,7 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 4px;
+            height: 3px;
             background: linear-gradient(90deg, #b93838, #d45858);
             transform: scaleX(0);
             transition: transform 0.3s ease;
@@ -351,35 +390,35 @@
         }
 
         .team-member-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.12); /* Giảm từ 0 12px 30px xuống 0 8px 20px */
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.12);
         }
 
         .member-avatar {
-            width: 60px; /* Giảm từ 80px xuống 60px */
-            height: 60px; /* Giảm từ 80px xuống 60px */
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
-            margin: 0 auto 10px; /* Giảm từ 15px xuống 10px */
+            margin: 0 auto 8px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 24px; /* Giảm từ 32px xuống 24px */
+            font-size: 20px;
             font-weight: 600;
-            box-shadow: 0 3px 10px rgba(102, 126, 234, 0.3); /* Giảm từ 0 5px 15px xuống 0 3px 10px */
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
         }
 
         .member-name {
-            font-size: 16px; /* Giảm từ 18px xuống 16px */
+            font-size: 14px;
             font-weight: 600;
             color: #333;
-            margin-bottom: 5px;
+            margin-bottom: 3px;
         }
 
         .thank-you-section {
             text-align: center;
-            padding: 20px; /* Giảm từ 30px xuống 20px */
+            padding: 15px;
             background: linear-gradient(135deg, rgba(185, 56, 56, 0.05) 0%, rgba(212, 88, 88, 0.05) 100%);
             border-top: 1px solid rgba(185, 56, 56, 0.1);
             flex-shrink: 0;
@@ -387,13 +426,13 @@
 
         .thank-you-section h3 {
             color: #b93838;
-            font-size: 20px; /* Giảm từ 24px xuống 20px */
-            margin-bottom: 8px; /* Giảm từ 10px xuống 8px */
+            font-size: 18px;
+            margin-bottom: 5px;
         }
 
         .thank-you-section p {
             color: #666;
-            font-size: 14px; /* Giảm từ 16px xuống 14px */
+            font-size: 12px;
         }
 
         /* Rotation notice */
@@ -414,28 +453,73 @@
         }
 
         #rotation-notice i {
-            font-size: 4rem;
+            font-size: 3rem;
             margin-bottom: 1rem;
             color: #b93838;
         }
 
         #rotation-notice p {
-            font-size: 1.2rem;
+            font-size: 1rem;
             margin: 0;
             padding: 0 20px;
         }
 
-        /* Responsive Design */
-        @media only screen and (max-width: 1024px) {
+        /* Responsive Design - Giữ nguyên kích thước A4 trên laptop/máy tính */
+        @media only screen and (max-width: 1400px) {
+            .a4-container {
+                padding: 20px;
+            }
+            /* Giữ nguyên kích thước A4 trên laptop lớn */
             #main-ui {
-                max-width: 95vw;
+                width: 794px;
+                height: 1123px;
+                transform: none;
+            }
+            #team-container {
+                width: 600px;
+                height: 400px;
+                transform: none;
+            }
+        }
+
+        @media only screen and (max-width: 1200px) {
+            .a4-container {
+                padding: 15px;
+            }
+            /* Giữ nguyên kích thước A4 trên laptop trung bình */
+            #main-ui {
+                width: 794px;
+                height: 1123px;
+                transform: none;
+            }
+            #team-container {
+                width: 600px;
+                height: 400px;
+                transform: none;
+            }
+        }
+
+        @media only screen and (max-width: 1024px) {
+            .a4-container {
+                padding: 10px;
+            }
+            /* Giữ nguyên kích thước A4 trên laptop nhỏ */
+            #main-ui {
+                width: 794px;
+                height: 1123px;
+                transform: none;
+            }
+            #team-container {
+                width: 600px;
+                height: 400px;
+                transform: none;
             }
             #header-box h2 {
-                font-size: 40px;
+                font-size: 32px;
                 margin-top: 100px;
             }
             #right-content-area {
-                padding: 30px;
+                padding: 40px;
                 padding-left: 0;
             }
             .feature-text {
@@ -454,86 +538,48 @@
             }
 
             @media (orientation: landscape) {
+                .a4-container {
+                    padding: 5px;
+                }
+                /* Chỉ thu nhỏ trên tablet/mobile */
                 #main-ui {
-                    width: 100vw;
-                    height: 100vh;
-                    max-width: 100%;
-                    max-height: 100%;
-                    border-radius: 0;
-                    aspect-ratio: auto;
+                    width: 794px;
+                    height: 1123px;
+                    transform: scale(0.7);
+                    transform-origin: center center;
+                    border-radius: 8px;
+                }
+                #team-container {
+                    width: 600px;
+                    height: 400px;
+                    transform: scale(0.7);
+                    transform-origin: center center;
                 }
                 #right-content-area {
-                    padding: 20px;
+                    padding: 30px;
                     padding-left: 0;
                 }
                 #header-box h2 {
                     font-size: 28px;
-                    margin-top: 20px;
+                    margin-top: 80px;
                     margin-bottom: 15px;
                 }
                 .feature-text {
                     font-size: 14px;
                 }
                 .feature-item {
-                    padding: 12px;
+                    padding: 15px;
                     gap: 12px;
                 }
                 .feature-icon {
-                    width: 30px;
-                    height: 30px;
+                    width: 35px;
+                    height: 35px;
                     margin-top: 2px;
                 }
             }
 
-            #team-container {
-                width: 95%;
-                max-height: 90vh;
-            }
-
-            #team-members {
-                padding: 15px; /* Giảm thêm trên thiết bị di động */
-            }
-
             .team-grid {
-                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Giảm thêm trên thiết bị di động */
-                gap: 10px; /* Giảm thêm trên thiết bị di động */
-            }
-            
-            .team-member-card {
-                padding: 10px; /* Giảm thêm trên thiết bị di động */
-            }
-            
-            .member-avatar {
-                width: 50px; /* Giảm thêm trên thiết bị di động */
-                height: 50px; /* Giảm thêm trên thiết bị di động */
-                font-size: 20px; /* Giảm thêm trên thiết bị di động */
-            }
-            
-            .member-name {
-                font-size: 14px; /* Giảm thêm trên thiết bị di động */
-            }
-        }
-
-        /* Thêm media query cho màn hình rất nhỏ */
-        @media only screen and (max-width: 480px) {
-            #team-container {
-                width: 98%;
-            }
-            
-            #team-header {
-                padding: 15px 20px;
-            }
-            
-            #team-header h2 {
-                font-size: 24px;
-            }
-            
-            #team-members {
-                padding: 10px;
-            }
-            
-            .team-grid {
-                grid-template-columns: repeat(2, 1fr); /* Chỉ 2 cột trên màn hình rất nhỏ */
+                grid-template-columns: repeat(3, 1fr);
                 gap: 8px;
             }
             
@@ -544,24 +590,109 @@
             .member-avatar {
                 width: 40px;
                 height: 40px;
-                font-size: 18px;
+                font-size: 16px;
             }
             
             .member-name {
                 font-size: 12px;
             }
+        }
+
+        /* Thêm media query cho màn hình rất nhỏ - THU NHỎ HƠN NỮA */
+        @media only screen and (max-width: 480px) {
+            .a4-container {
+                padding: 2px;
+            }
+            #main-ui {
+                width: 794px;
+                height: 1123px;
+                transform: scale(0.5);
+                transform-origin: center center;
+            }
+            #team-container {
+                width: 600px;
+                height: 400px;
+                transform: scale(0.5);
+                transform-origin: center center;
+            }
+            
+            #team-header {
+                padding: 8px 12px;
+            }
+            
+            #team-header h2 {
+                font-size: 16px;
+            }
+            
+            #team-header p {
+                font-size: 10px;
+            }
+            
+            #team-members {
+                padding: 5px;
+            }
+            
+            .team-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 4px;
+            }
+            
+            .team-member-card {
+                padding: 4px;
+            }
+            
+            .member-avatar {
+                width: 30px;
+                height: 30px;
+                font-size: 12px;
+                margin: 0 auto 4px;
+            }
+            
+            .member-name {
+                font-size: 9px;
+                margin-bottom: 2px;
+            }
             
             .thank-you-section {
-                padding: 15px;
+                padding: 8px;
             }
             
             .thank-you-section h3 {
-                font-size: 18px;
+                font-size: 14px;
+                margin-bottom: 3px;
             }
             
             .thank-you-section p {
-                font-size: 12px;
+                font-size: 9px;
             }
+
+            .close-button {
+                width: 24px;
+                height: 24px;
+                font-size: 12px;
+                top: 8px;
+                right: 8px;
+            }
+        }
+
+        /* Vô hiệu hóa chuột phải trên hình ảnh */
+        img {
+            -webkit-user-drag: none;
+            -khtml-user-drag: none;
+            -moz-user-drag: none;
+            -o-user-drag: none;
+            user-drag: none;
+            pointer-events: none;
+        }
+
+        /* Vô hiệu hóa chuột phải trên toàn bộ trang */
+        body {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
     </style>
 </head>
@@ -573,60 +704,63 @@
         <p>Vui lòng xoay ngang thiết bị để có trải nghiệm tốt nhất</p>
     </div>
 
-    <div id="main-ui">
-        <!-- Nút xem thêm thông tin nhóm -->
-        <button id="team-button" onclick="openTeamModal()">
-            <i class="fa-solid fa-users"></i>
-        </button>
+    <!-- Container A4 với padding -->
+    <div class="a4-container">
+        <div id="main-ui">
+            <!-- Nút xem thêm thông tin nhóm -->
+            <button id="team-button" onclick="openTeamModal()">
+                <i class="fa-solid fa-users"></i>
+            </button>
 
-        <div id="left-image-area">
-            <img id="product-image" src="image/img2.png" alt="Sản phẩm minh họa">
-        </div>
+            <div id="left-image-area">
+                <img id="product-image" src="image/img2.png" alt="Sản phẩm minh họa">
+            </div>
 
-        <div id="right-content-area">
-            <div id="content-wrapper">
-                <div id="header-box">
-                    <h2 class="serif-font">Bảo tháp Lục Độ Đài Sen</h2>
-                </div>
-
-                <div id="feature-list">
-                    <div class="feature-item">
-                        <div class="feature-icon" onclick="toggleAudio(0, this)">
-                            <i class="fa-solid fa-play" style="font-size: 14px;"></i>
-                        </div>
-                        <div class="feature-text">
-                            <strong>Six Perfections Lotus Stupa</strong><br>
-                            The architectural highlight of the complex is the Six Perfections Lotus Stupa, which is symmetrically arranged with the Bodhi tree. Built at the end of the 20th century, it remains a highly symbolic structure, strictly adhering to the iconographic principles of Buddhism.
-                        </div>
+            <div id="right-content-area">
+                <div id="content-wrapper">
+                    <div id="header-box">
+                        <h2 class="serif-font">Bảo tháp Lục Độ Đài Sen</h2>
                     </div>
 
-                    <div class="feature-item">
-                        <div class="feature-icon" onclick="toggleAudio(1, this)">
-                            <i class="fa-solid fa-play" style="font-size: 14px;"></i>
+                    <div id="feature-list">
+                        <div class="feature-item">
+                            <div class="feature-icon" onclick="toggleAudio(0, this)">
+                                <i class="fa-solid fa-play" style="font-size: 14px;"></i>
+                            </div>
+                            <div class="feature-text">
+                                <strong>Six Perfections Lotus Stupa</strong><br>
+                                The architectural highlight of complex is Six Perfections Lotus Stupa, which is symmetrically arranged with Bodhi tree. Built at end of 20th century, it remains a highly symbolic structure, strictly adhering to the iconographic principles of Buddhism.
+                            </div>
                         </div>
-                        <div class="feature-text">
-                            At the very top is the nine-tiered lotus pedestal (Cửu phẩm liên hoa), crafted from precious stone, symbolizing the nine supreme levels of the Pure Land and representing spiritual elevation along the inner journey.
-                            <br><br>
-                            The entire stupa carries a reddish-brown hue, harmonizing with the ancient brick tones and the overall architecture of the temple.
-                        </div>
-                    </div>
 
-                    <div class="feature-item">
-                        <div class="feature-icon" onclick="toggleAudio(2, this)">
-                            <i class="fa-solid fa-play" style="font-size: 14px;"></i>
+                        <div class="feature-item">
+                            <div class="feature-icon" onclick="toggleAudio(1, this)">
+                                <i class="fa-solid fa-play" style="font-size: 14px;"></i>
+                            </div>
+                            <div class="feature-text">
+                                At the very top is the nine-tiered lotus pedestal (Cửu phẩm liên hoa), crafted from precious stone, symbolizing the nine supreme levels of the Pure Land and representing spiritual elevation along the inner journey.
+                                <br><br>
+                                The entire stupa carries a reddish-brown hue, harmonizing with the ancient brick tones and the overall architecture of the temple.
+                            </div>
                         </div>
-                        <div class="feature-text">
-                            <strong>Tower parameters</strong><br>
-                            The stupa is fifteen meters high, consisting of eleven stories, with a floor area of about 10.5 square meters.
+
+                        <div class="feature-item">
+                            <div class="feature-icon" onclick="toggleAudio(2, this)">
+                                <i class="fa-solid fa-play" style="font-size: 14px;"></i>
+                            </div>
+                            <div class="feature-text">
+                                <strong>Tower parameters</strong><br>
+                                The stupa is fifteen meters high, consisting of eleven stories, with a floor area of about 10.5 square meters.
+                            </div>
                         </div>
-                    </div>
-                    
-                    <div class="feature-item">
-                        <div class="feature-icon" onclick="toggleAudio(3, this)">
-                            <i class="fa-solid fa-play" style="font-size: 14px;"></i>
-                        </div>
-                        <div class="feature-text">
-                            The stupa has a hexagonal shape. Each level features six arched doors, and within each doorway stands a statue of Amitabha Buddha carved from white precious stone. In total, there are sixty-six statues of varying sizes. This number, together with the name Six Perfection symbolizes the six noble practices (paramitas) of the Bodhisattva.
+                        
+                        <div class="feature-item">
+                            <div class="feature-icon" onclick="toggleAudio(3, this)">
+                                <i class="fa-solid fa-play" style="font-size: 14px;"></i>
+                            </div>
+                            <div class="feature-text">
+                                The stupa has a hexagonal shape. Each level features six arched doors, and within each doorway stands a statue of Amitabha Buddha carved from white precious stone. In total, there are sixty-six statues of varying sizes. This number, together with the name Six Perfection symbolizes the six noble practices (paramitas) of the Bodhisattva.
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -682,6 +816,30 @@
     </div>
 
     <script>
+        // Vô hiệu hóa chuột phải
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            return false;
+        });
+
+        // Vô hiệu hóa các phím tắt
+        document.addEventListener('keydown', function(e) {
+            // Vô hiệu hóa F12
+            if (e.keyCode === 123) {
+                e.preventDefault();
+                return false;
+            }
+            // Vô hiệu hóa Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
+            if (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74)) {
+                e.preventDefault();
+                return false;
+            }
+            if (e.ctrlKey && e.keyCode === 85) {
+                e.preventDefault();
+                return false;
+            }
+        });
+
         const audioSources = [
             "https://firebasestorage.googleapis.com/v0/b/sleana-mod.appspot.com/o/voice%2Fvoice1.mp3?alt=media&token=4fbf899d-cd4e-4026-99bc-2de09266ecbd",
             "https://firebasestorage.googleapis.com/v0/b/sleana-mod.appspot.com/o/voice%2Fvoice2.mp3?alt=media&token=b67738e3-9480-4975-99b5-6ffe03a40633",
